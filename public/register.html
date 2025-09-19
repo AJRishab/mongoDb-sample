@@ -1,32 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Register</title>
+  <meta charset="UTF-8">
+  <title>Register - My Notepad</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      background: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-<h2>Register</h2>
-<input id="username" placeholder="Username">
-<input id="email" placeholder="Email">
-<input id="password" placeholder="Password" type="password">
-<button onclick="register()">Register</button>
-<p>Already have an account? <a href="login.html">Login</a></p>
+  <div class="container">
+    <h2>Create Account</h2>
+    <input id="username" placeholder="Username" required>
+    <input id="email" placeholder="Email" type="email" required>
+    <input id="password" placeholder="Password" type="password" required>
+    <button onclick="register()">Register</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
 
-<script>
-async function register() {
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+  <script>
+    const API_URL = "https://mongodb-sample.onrender.com/api/auth"; // Your Render backend
 
-    const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify({ username, email, password })
-    });
+    async function register() {
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-    const data = await res.json();
-    alert(data.message || data.error);
-    if(data.message) window.location.href = 'login.html';
-}
-</script>
+      if (!username || !email || !password) {
+        alert("All fields are required!");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          alert("Registration successful! Please login.");
+          window.location.href = "login.html";
+        } else {
+          alert(data.error || "Registration failed");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error connecting to server.");
+      }
+    }
+  </script>
 </body>
 </html>
