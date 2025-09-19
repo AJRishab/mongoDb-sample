@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: notepad-backend
+    env: node
+    region: oregon  # or your preferred region
+    plan: free
+    buildCommand: npm install
+    startCommand: node index.js
+    autoDeploy: true
