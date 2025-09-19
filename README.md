@@ -132,17 +132,3 @@ node index.js
 
 ---
 
-## 8. License
-
-MIT License
-
-```
-
----
-
-✅ You can now copy this entire content into a file named `README.md` in your project root.  
-
-If you want, I can also **create a simple ASCII diagram or embed a flowchart** showing **Frontend → Backend → MongoDB** inside this README for better clarity.  
-
-Do you want me to do that?
-```
