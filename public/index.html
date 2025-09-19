@@ -89,7 +89,10 @@
 </head>
 <body>
   <div class="container">
-    <h2>My Notes</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2 style="margin: 0;">My Notes</h2>
+      <button onclick="logout()" style="width: auto; padding: 8px 16px; background: #dc3545; font-size: 14px;">Logout</button>
+    </div>
     <input id="title" placeholder="Title">
     <textarea id="content" placeholder="Content"></textarea>
     <button onclick="addNote()">Add Note</button>
